@@ -12,7 +12,7 @@ struct RecognitionView: View {
             if viewModel.isWaitingForAPI {
                 WaitingView(achievementPercentage: viewModel.achievementPercentage ?? 0)
             } else if viewModel.isAwake {
-                SuccessView(onDismiss: resetView)
+                SuccessView(onDismiss: resetView, achievementPercentage: viewModel.achievementPercentage ?? 0)
             } else {
                 Text(viewModel.statusMessage)
                     .font(.headline)
@@ -25,15 +25,11 @@ struct RecognitionView: View {
                         .padding()
                 }
 
-                //Spacer()
-
                 if let apiResult = viewModel.apiResult, !viewModel.isWaitingForAPI {
                     let achievementPercentage = viewModel.achievementPercentage ?? 0
                     Text("達成率: \(achievementPercentage)%")
                         .padding()
-                        //.background(Color.gray)
                         .foregroundColor(.white)
-                        //.cornerRadius(8)
 
                     Button(action: viewModel.startListening) {
                         Text("再度録音を開始")
@@ -69,7 +65,7 @@ struct RecognitionView: View {
         .onChange(of: viewModel.apiResult) { newValue in
             if let result = newValue {
                 viewModel.isWaitingForAPI = true
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                     viewModel.isWaitingForAPI = false
                     if result >= 0.6 {
                         viewModel.isAwake = true

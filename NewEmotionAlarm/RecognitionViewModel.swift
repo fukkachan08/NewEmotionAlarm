@@ -23,7 +23,6 @@ class RecognitionViewModel: ObservableObject {
     private var selectedDate: Date
     private var isTomorrow: Bool
     private var immediate: Bool
-    private var startTime: Date?
 
     // APIエンドポイント
     private let apiEndpoint = "https://ai-api.userlocal.jp/voice-emotion/basic-emotions"
@@ -179,7 +178,6 @@ class RecognitionViewModel: ObservableObject {
             return
         }
 
-        // 必要なデバッグ情報を出力
         print("API response: \(jsonResponse)")
         print("happy: \(emotionDetail["happy"] ?? "nil")")
         print("angry: \(emotionDetail["angry"] ?? "nil")")
@@ -202,7 +200,7 @@ class RecognitionViewModel: ObservableObject {
                 self.achievementPercentage = Int((self.apiResult! / 0.6) * 100)
                 print("API Result: \(self.apiResult ?? 0)")
 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                     if self.apiResult! >= 0.6 {
                         self.isAwake = true
                     } else {

@@ -3,6 +3,7 @@ import SwiftUI
 struct SuccessView: View {
     @Environment(\.presentationMode) var presentationMode
     var onDismiss: () -> Void
+    var achievementPercentage: Int
 
     var body: some View {
         VStack {
@@ -14,6 +15,9 @@ struct SuccessView: View {
             Text("あなたは起きています")
                 .font(.title2)
                 .multilineTextAlignment(.center)
+                .padding()
+            Text("達成率: \(achievementPercentage)%")
+                .font(.title2)
                 .padding()
             Spacer()
             Button(action: {
