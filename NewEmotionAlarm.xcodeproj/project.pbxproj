@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		69C09BFF2C145360004260BF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69C09BFE2C145360004260BF /* Main.storyboard */; };
+		69C09C012C145412004260BF /* HintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C09C002C145412004260BF /* HintViewController.swift */; };
 		69C0BA2A2C13661200BA0B35 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C0BA292C13661200BA0B35 /* ContentView.swift */; };
 		69C0BA2C2C13661500BA0B35 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 69C0BA2B2C13661500BA0B35 /* Assets.xcassets */; };
 		69C0BA2F2C13661500BA0B35 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 69C0BA2E2C13661500BA0B35 /* Preview Assets.xcassets */; };
@@ -19,6 +21,8 @@
 
 /* Begin PBXFileReference section */
 		69C09BFD2C13F4E8004260BF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		69C09BFE2C145360004260BF /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		69C09C002C145412004260BF /* HintViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HintViewController.swift; sourceTree = "<group>"; };
 		69C0BA242C13661200BA0B35 /* NewEmotionAlarm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewEmotionAlarm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		69C0BA292C13661200BA0B35 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		69C0BA2B2C13661500BA0B35 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -64,7 +68,9 @@
 				69C0BA292C13661200BA0B35 /* ContentView.swift */,
 				69C0BA352C1366B900BA0B35 /* RecognitionView.swift */,
 				69C0BA3D2C13677100BA0B35 /* AppDelegate.swift */,
+				69C09C002C145412004260BF /* HintViewController.swift */,
 				69C0BA3B2C13671600BA0B35 /* WaitingView.swift */,
+				69C09BFE2C145360004260BF /* Main.storyboard */,
 				69C0BA372C1366DB00BA0B35 /* SuccessView.swift */,
 				69C0BA392C1366FC00BA0B35 /* RecognitionViewModel.swift */,
 				69C0BA2B2C13661500BA0B35 /* Assets.xcassets */,
@@ -139,6 +145,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69C09BFF2C145360004260BF /* Main.storyboard in Resources */,
 				69C0BA2F2C13661500BA0B35 /* Preview Assets.xcassets in Resources */,
 				69C0BA2C2C13661500BA0B35 /* Assets.xcassets in Resources */,
 			);
@@ -153,6 +160,7 @@
 			files = (
 				69C0BA382C1366DB00BA0B35 /* SuccessView.swift in Sources */,
 				69C0BA2A2C13661200BA0B35 /* ContentView.swift in Sources */,
+				69C09C012C145412004260BF /* HintViewController.swift in Sources */,
 				69C0BA3C2C13671600BA0B35 /* WaitingView.swift in Sources */,
 				69C0BA3E2C13677100BA0B35 /* AppDelegate.swift in Sources */,
 				69C0BA362C1366B900BA0B35 /* RecognitionView.swift in Sources */,

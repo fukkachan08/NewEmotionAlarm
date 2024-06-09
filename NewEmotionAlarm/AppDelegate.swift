@@ -44,5 +44,25 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.banner, .sound])
     }
+
+    func showHint() {
+        print("showHint called") // デバッグプリントを追加
+
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let hintVC = storyboard.instantiateViewController(withIdentifier: "HintViewController") as? HintViewController {
+            print("HintViewController instantiated") // デバッグプリントを追加
+            if let rootVC = window?.rootViewController {
+                rootVC.present(hintVC, animated: true, completion: {
+                    print("HintViewController presented") // デバッグプリントを追加
+                })
+            } else {
+                print("Root view controller not found") // デバッグプリントを追加
+            }
+        } else {
+            print("Failed to instantiate HintViewController") // デバッグプリントを追加
+        }
+    }
+
+
 }
 
