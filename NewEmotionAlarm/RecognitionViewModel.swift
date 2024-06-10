@@ -9,9 +9,9 @@ class RecognitionViewModel: ObservableObject {
     @Published var countdown = 10
     @Published var statusMessage = "録音を開始してください"
     @Published var apiResult: Float?
-    @Published var isAwake = false  // 画面遷移用のフラグ
-    @Published var isWaitingForAPI = false  // API待機用のフラグ
-    @Published var achievementPercentage: Int?  // 達成率
+    @Published var isAwake = false
+    @Published var isWaitingForAPI = false
+    @Published var achievementPercentage: Int?
 
     private let speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "ja-JP"))
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
@@ -19,12 +19,12 @@ class RecognitionViewModel: ObservableObject {
     private let audioEngine = AVAudioEngine()
     private var timer: Timer?
     private var audioFile: AVAudioFile?
-    private let audioFileName = "recording.wav"  // 音声ファイルをwav形式で保存
+    private let audioFileName = "recording.wav"
     private var selectedDate: Date
     private var isTomorrow: Bool
     private var immediate: Bool
+    private var startTime: Date?
 
-    // APIエンドポイント
     private let apiEndpoint = "https://ai-api.userlocal.jp/voice-emotion/basic-emotions"
 
     init(selectedDate: Date, isTomorrow: Bool, immediate: Bool = false) {
@@ -178,6 +178,7 @@ class RecognitionViewModel: ObservableObject {
             return
         }
 
+        // 必要なデバッグ情報を出力
         print("API response: \(jsonResponse)")
         print("happy: \(emotionDetail["happy"] ?? "nil")")
         print("angry: \(emotionDetail["angry"] ?? "nil")")

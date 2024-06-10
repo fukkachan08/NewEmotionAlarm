@@ -30,34 +30,26 @@ struct RecognitionView: View {
                     Text("達成率: \(achievementPercentage)%")
                         .padding()
                         .foregroundColor(.white)
+                }
 
+                if viewModel.isListening {
+                    Button(action: viewModel.stopListening) {
+                        Text("停止する")
+                            .padding()
+                            .background(Color.red)
+                            .foregroundColor(.white)
+                            .cornerRadius(8)
+                    }
+                    .padding()
+                } else {
                     Button(action: viewModel.startListening) {
-                        Text("再度録音を開始")
+                        Text("録音を開始")
                             .padding()
                             .background(Color.blue)
                             .foregroundColor(.white)
                             .cornerRadius(8)
                     }
-                } else {
-                    if viewModel.isListening {
-                        Button(action: viewModel.stopListening) {
-                            Text("停止する")
-                                .padding()
-                                .background(Color.red)
-                                .foregroundColor(.white)
-                                .cornerRadius(8)
-                        }
-                        .padding()
-                    } else {
-                        Button(action: viewModel.startListening) {
-                            Text("録音を開始")
-                                .padding()
-                                .background(Color.blue)
-                                .foregroundColor(.white)
-                                .cornerRadius(8)
-                        }
-                        .padding()
-                    }
+                    .padding()
                 }
 
                 // ヒントボタンを追加
