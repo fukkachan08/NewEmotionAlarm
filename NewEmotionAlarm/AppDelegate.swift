@@ -66,5 +66,14 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
             print("Root view controller not found")
         }
     }
+
+    func showContentView() {
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+            let window = UIWindow(windowScene: windowScene)
+            window.rootViewController = UIHostingController(rootView: ContentView())
+            window.makeKeyAndVisible()
+            self.window = window
+        }
+    }
 }
 

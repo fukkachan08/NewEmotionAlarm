@@ -12,17 +12,21 @@ struct SuccessView: View {
                 .font(.title)
                 .multilineTextAlignment(.center)
                 .padding()
-            Text("あなたは起きています")
+            Text("達成率: \(achievementPercentage)%")
                 .font(.title2)
                 .multilineTextAlignment(.center)
                 .padding()
-            Text("達成率: \(achievementPercentage)%")
+            Text("あなたは起きています")
                 .font(.title2)
+                .multilineTextAlignment(.center)
                 .padding()
             Spacer()
             Button(action: {
                 presentationMode.wrappedValue.dismiss()
                 onDismiss()
+                if let appDelegate = sharedAppDelegate {
+                    appDelegate.showContentView()
+                }
             }) {
                 Text("最初の画面に戻る")
                     .padding()
