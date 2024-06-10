@@ -78,6 +78,28 @@ struct ContentView: View {
                 print("Error adding notification: \(error)")
             } else {
                 print("Notification scheduled: \(request.identifier) at \(dateComponents.hour!):\(dateComponents.minute!)")
+                scheduleAdditionalNotifications(date: selectedDate, interval: 20, count: 10)
+            }
+        }
+    }
+
+    func scheduleAdditionalNotifications(date: Date, interval: TimeInterval, count: Int) {
+        for i in 1...count {
+            let triggerDate = Calendar.current.date(byAdding: .second, value: Int(interval) * i, to: date)!
+            let trigger = UNCalendarNotificationTrigger(dateMatching: Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: triggerDate), repeats: false)
+            let content = UNMutableNotificationContent()
+            content.title = "起きろ！"
+            content.body = "まだ起きていませんか？"
+            content.sound = UNNotificationSound.default
+
+            let request = UNNotificationRequest(identifier: "RetryNotification-\(i)", content: content, trigger: trigger)
+
+            UNUserNotificationCenter.current().add(request) { error in
+                if let error = error {
+                    print("Error adding retry notification \(i): \(error)")
+                } else {
+                    print("Retry notification \(i) scheduled at \(triggerDate)")
+                }
             }
         }
     }
@@ -96,6 +118,7 @@ struct ContentView: View {
                 print("Error adding immediate notification: \(error)")
             } else {
                 print("Immediate notification scheduled")
+                scheduleAdditionalNotifications(date: Date().addingTimeInterval(1), interval: 20, count: 10)
             }
         }
     }

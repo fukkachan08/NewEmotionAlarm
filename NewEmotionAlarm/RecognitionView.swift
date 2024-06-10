@@ -76,10 +76,12 @@ struct RecognitionView: View {
                         viewModel.isAwake = true
                     } else {
                         viewModel.isAwake = false
-                        viewModel.sendRetryNotification()
                     }
                 }
             }
+        }
+        .onAppear {
+            //viewModel.startMonitoring()  // モニタリングを開始
         }
     }
 

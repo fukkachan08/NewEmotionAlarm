@@ -84,6 +84,7 @@ class RecognitionViewModel: ObservableObject {
                 self.isListening = true
                 self.statusMessage = "音声録音中"
                 self.startCountdown()
+                self.checkRecordingStartTimeout()
             }
         } catch {
             return
@@ -178,13 +179,11 @@ class RecognitionViewModel: ObservableObject {
             return
         }
 
-        // 必要なデバッグ情報を出力
         print("API response: \(jsonResponse)")
         print("happy: \(emotionDetail["happy"] ?? "nil")")
         print("angry: \(emotionDetail["angry"] ?? "nil")")
         print("surprise: \(emotionDetail["surprise"] ?? "nil")")
-        
-        
+
         DispatchQueue.main.async {
             self.isWaitingForAPI = false
 
@@ -207,7 +206,6 @@ class RecognitionViewModel: ObservableObject {
                         self.isAwake = true
                     } else {
                         self.isAwake = false
-                        self.sendRetryNotification()
                     }
                 }
             } else {
@@ -216,22 +214,31 @@ class RecognitionViewModel: ObservableObject {
         }
     }
 
-    private func startMonitoring() {
-        DispatchQueue.global().async {
-            while true {
-                sleep(20)
-                DispatchQueue.main.async {
-                    if !self.isListening && !self.isAwake {
-                        self.sendRetryNotification()
-                    }
-                }
+    func checkRecordingStartTimeout() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 20) {
+            if !self.isListening {
+                self.sendRetryNotification()
             }
         }
     }
 
     func sendRetryNotification() {
-        if let appDelegate = sharedAppDelegate {
-            appDelegate.sendRetryNotification()
+        let content = UNMutableNotificationContent()
+        content.title = "再試行通知"
+        content.body = "音声録音が開始されませんでした。再度お試しください。"
+        content.sound = UNNotificationSound.default
+
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+        let request = UNNotificationRequest(identifier: "RetryNotification-\(UUID().uuidString)", content: content, trigger: trigger)
+
+        UNUserNotificationCenter.current().add(request)
+    }
+
+    func startMonitoring() {
+        Timer.scheduledTimer(withTimeInterval: 20.0, repeats: true) { timer in
+            if !self.isListening && !self.isAwake {
+                self.sendRetryNotification()
+            }
         }
     }
 

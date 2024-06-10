@@ -35,7 +35,8 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     }
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        if response.notification.request.identifier == "AlarmNotification" || response.notification.request.identifier == "ImmediateNotification" {
+        if response.notification.request.identifier == "AlarmNotification" || response.notification.request.identifier.starts(with: "RetryNotification") {
+            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
             DispatchQueue.main.async {
                 if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
                     let window = UIWindow(windowScene: windowScene)
@@ -50,18 +51,6 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.banner, .sound])
-    }
-
-    func sendRetryNotification() {
-        let content = UNMutableNotificationContent()
-        content.title = "起きろ！"
-        content.body = "音声録音が開始されませんでした。再度お試しください。"
-        content.sound = UNNotificationSound.default
-
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
-        let request = UNNotificationRequest(identifier: "RetryNotification", content: content, trigger: trigger)
-
-        UNUserNotificationCenter.current().add(request)
     }
 
     func showHint() {
@@ -88,3 +77,4 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         }
     }
 }
+
