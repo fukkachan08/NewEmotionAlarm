@@ -32,25 +32,20 @@ struct RecognitionView: View {
                         .foregroundColor(.white)
                 }
 
-                if viewModel.isListening {
-                    Button(action: viewModel.stopListening) {
-                        Text("停止する")
-                            .padding()
-                            .background(Color.red)
-                            .foregroundColor(.white)
-                            .cornerRadius(8)
+                Button(action: {
+                    if viewModel.isListening {
+                        viewModel.stopListening()
+                    } else {
+                        viewModel.startListening()
                     }
-                    .padding()
-                } else {
-                    Button(action: viewModel.startListening) {
-                        Text("録音を開始")
-                            .padding()
-                            .background(Color.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(8)
-                    }
-                    .padding()
+                }) {
+                    Text(viewModel.isListening ? "停止する" : "録音を開始")
+                        .padding()
+                        .background(viewModel.isListening ? Color.red : Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
                 }
+                .padding()
 
                 // ヒントボタンを追加
                 Button(action: {
