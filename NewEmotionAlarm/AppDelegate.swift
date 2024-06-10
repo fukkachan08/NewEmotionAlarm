@@ -1,6 +1,8 @@
 import SwiftUI
 import UserNotifications
 
+var sharedAppDelegate: AppDelegate?
+
 @main
 struct VoiceEmotionAlarmApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
@@ -14,6 +16,11 @@ struct VoiceEmotionAlarmApp: App {
 
 class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     var window: UIWindow?
+
+    override init() {
+        super.init()
+        sharedAppDelegate = self
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { granted, error in
@@ -46,23 +53,18 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     }
 
     func showHint() {
-        print("showHint called") // デバッグプリントを追加
+        print("showHint called")
 
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let hintVC = storyboard.instantiateViewController(withIdentifier: "HintViewController") as? HintViewController {
-            print("HintViewController instantiated") // デバッグプリントを追加
-            if let rootVC = window?.rootViewController {
-                rootVC.present(hintVC, animated: true, completion: {
-                    print("HintViewController presented") // デバッグプリントを追加
-                })
-            } else {
-                print("Root view controller not found") // デバッグプリントを追加
-            }
+        let hintVC = storyboard.instantiateViewController(withIdentifier: "HintViewController")
+        print("HintViewController instantiated")
+        if let rootVC = window?.rootViewController {
+            rootVC.present(hintVC, animated: true, completion: {
+                print("HintViewController presented")
+            })
         } else {
-            print("Failed to instantiate HintViewController") // デバッグプリントを追加
+            print("Root view controller not found")
         }
     }
-
-
 }
 

@@ -2,7 +2,6 @@ import SwiftUI
 
 struct RecognitionView: View {
     @StateObject private var viewModel: RecognitionViewModel
-    @Environment(\.presentationMode) var presentationMode
 
     init(viewModel: RecognitionViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
@@ -60,21 +59,24 @@ struct RecognitionView: View {
                         .padding()
                     }
                 }
+
+                // ヒントボタンを追加
                 Button(action: {
-                                    print("Hint button pressed") // デバッグプリントを追加
-                                    if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-                                        print("AppDelegate found") // デバッグプリントを追加
-                                        appDelegate.showHint()
-                                    } else {
-                                        print("AppDelegate not found") // デバッグプリントを追加
-                                    }
-                                }) {
-                                    Text("ヒント")
-                                        .padding()
-                                        .background(Color.orange)
-                                        .foregroundColor(.white)
-                                        .cornerRadius(8)
-                                }
+                    print("Hint button pressed")
+                    if let appDelegate = sharedAppDelegate {
+                        print("AppDelegate found")
+                        appDelegate.showHint()
+                    } else {
+                        print("AppDelegate not found")
+                    }
+                }) {
+                    Text("ヒント")
+                        .padding()
+                        .background(Color.orange)
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
+                }
+                .padding()
             }
         }
         .padding()

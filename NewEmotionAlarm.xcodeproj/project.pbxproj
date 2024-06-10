@@ -17,6 +17,7 @@
 		69C0BA3A2C1366FC00BA0B35 /* RecognitionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C0BA392C1366FC00BA0B35 /* RecognitionViewModel.swift */; };
 		69C0BA3C2C13671600BA0B35 /* WaitingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C0BA3B2C13671600BA0B35 /* WaitingView.swift */; };
 		69C0BA3E2C13677100BA0B35 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C0BA3D2C13677100BA0B35 /* AppDelegate.swift */; };
+		69C4C4D42C16AA4B007040A0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C4C4D32C16AA4B007040A0 /* SceneDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		69C0BA392C1366FC00BA0B35 /* RecognitionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecognitionViewModel.swift; sourceTree = "<group>"; };
 		69C0BA3B2C13671600BA0B35 /* WaitingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingView.swift; sourceTree = "<group>"; };
 		69C0BA3D2C13677100BA0B35 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		69C4C4D32C16AA4B007040A0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 				69C09C002C145412004260BF /* HintViewController.swift */,
 				69C0BA3B2C13671600BA0B35 /* WaitingView.swift */,
 				69C09BFE2C145360004260BF /* Main.storyboard */,
+				69C4C4D32C16AA4B007040A0 /* SceneDelegate.swift */,
 				69C0BA372C1366DB00BA0B35 /* SuccessView.swift */,
 				69C0BA392C1366FC00BA0B35 /* RecognitionViewModel.swift */,
 				69C0BA2B2C13661500BA0B35 /* Assets.xcassets */,
@@ -165,6 +168,7 @@
 				69C0BA3E2C13677100BA0B35 /* AppDelegate.swift in Sources */,
 				69C0BA362C1366B900BA0B35 /* RecognitionView.swift in Sources */,
 				69C0BA3A2C1366FC00BA0B35 /* RecognitionViewModel.swift in Sources */,
+				69C4C4D42C16AA4B007040A0 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

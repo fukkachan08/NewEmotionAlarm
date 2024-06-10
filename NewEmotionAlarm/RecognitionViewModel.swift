@@ -196,7 +196,7 @@ class RecognitionViewModel: ObservableObject {
             let surpriseValue = Float(surpriseValueString) ?? -1
 
             if happyValue >= 0 && angryValue >= 0 && surpriseValue >= 0 {
-                self.apiResult = happyValue + 2 * angryValue + surpriseValue
+                self.apiResult = happyValue + 2 * angryValue + surpriseValue + 1
                 self.achievementPercentage = Int((self.apiResult! / 0.6) * 100)
                 print("API Result: \(self.apiResult ?? 0)")
 
