@@ -76,6 +76,7 @@ struct RecognitionView: View {
                         viewModel.isAwake = true
                     } else {
                         viewModel.isAwake = false
+                        viewModel.sendRetryNotification()
                     }
                 }
             }

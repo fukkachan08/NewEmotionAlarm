@@ -52,6 +52,18 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         completionHandler([.banner, .sound])
     }
 
+    func sendRetryNotification() {
+        let content = UNMutableNotificationContent()
+        content.title = "起きろ！"
+        content.body = "音声録音が開始されませんでした。再度お試しください。"
+        content.sound = UNNotificationSound.default
+
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+        let request = UNNotificationRequest(identifier: "RetryNotification", content: content, trigger: trigger)
+
+        UNUserNotificationCenter.current().add(request)
+    }
+
     func showHint() {
         print("showHint called")
 
@@ -76,4 +88,3 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         }
     }
 }
-

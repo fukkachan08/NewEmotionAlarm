@@ -32,6 +32,7 @@ class RecognitionViewModel: ObservableObject {
         self.isTomorrow = isTomorrow
         self.immediate = immediate
         requestPermissions()
+        startMonitoring()
     }
 
     private func requestPermissions() {
@@ -83,7 +84,6 @@ class RecognitionViewModel: ObservableObject {
                 self.isListening = true
                 self.statusMessage = "音声録音中"
                 self.startCountdown()
-                self.checkRecordingStartTimeout()
             }
         } catch {
             return
@@ -183,7 +183,8 @@ class RecognitionViewModel: ObservableObject {
         print("happy: \(emotionDetail["happy"] ?? "nil")")
         print("angry: \(emotionDetail["angry"] ?? "nil")")
         print("surprise: \(emotionDetail["surprise"] ?? "nil")")
-
+        
+        
         DispatchQueue.main.async {
             self.isWaitingForAPI = false
 
@@ -197,7 +198,7 @@ class RecognitionViewModel: ObservableObject {
             let surpriseValue = Float(surpriseValueString) ?? -1
 
             if happyValue >= 0 && angryValue >= 0 && surpriseValue >= 0 {
-                self.apiResult = happyValue + 2 * angryValue + surpriseValue + 1
+                self.apiResult = happyValue + 2 * angryValue + surpriseValue
                 self.achievementPercentage = Int((self.apiResult! / 0.6) * 100)
                 print("API Result: \(self.apiResult ?? 0)")
 
@@ -206,6 +207,7 @@ class RecognitionViewModel: ObservableObject {
                         self.isAwake = true
                     } else {
                         self.isAwake = false
+                        self.sendRetryNotification()
                     }
                 }
             } else {
@@ -214,36 +216,23 @@ class RecognitionViewModel: ObservableObject {
         }
     }
 
-    func checkRecordingStartTimeout() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 20) {
-            if !self.isListening {
-                self.sendRetryNotification()
+    private func startMonitoring() {
+        DispatchQueue.global().async {
+            while true {
+                sleep(20)
+                DispatchQueue.main.async {
+                    if !self.isListening && !self.isAwake {
+                        self.sendRetryNotification()
+                    }
+                }
             }
         }
     }
 
     func sendRetryNotification() {
-        let content = UNMutableNotificationContent()
-        content.title = "再試行通知"
-        content.body = "音声録音が開始されませんでした。再度お試しください。"
-        content.sound = UNNotificationSound.default
-
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
-        let request = UNNotificationRequest(identifier: "RetryNotification", content: content, trigger: trigger)
-
-        UNUserNotificationCenter.current().add(request)
-    }
-
-    func sendImmediateNotification() {
-        let content = UNMutableNotificationContent()
-        content.title = "テスト通知"
-        content.body = "これは即時通知のテストです"
-        content.sound = UNNotificationSound.default
-
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
-        let request = UNNotificationRequest(identifier: "ImmediateNotification", content: content, trigger: trigger)
-
-        UNUserNotificationCenter.current().add(request)
+        if let appDelegate = sharedAppDelegate {
+            appDelegate.sendRetryNotification()
+        }
     }
 
     func resetState() {
