@@ -3,6 +3,8 @@ import SwiftUI
 struct ContentView: View {
     @State private var selectedDate = Date()
     @State private var isTomorrow = false
+    @State private var showingAlert = false
+    @State private var alertMessage = ""
 
     var body: some View {
         VStack {
@@ -42,6 +44,9 @@ struct ContentView: View {
                     .cornerRadius(8)
             }
             .padding()
+            .alert(isPresented: $showingAlert) {
+                Alert(title: Text("アラームセット完了"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+            }
 
             Button(action: sendImmediateNotification) {
                 Text("即時通知を送信")
@@ -78,27 +83,14 @@ struct ContentView: View {
                 print("Error adding notification: \(error)")
             } else {
                 print("Notification scheduled: \(request.identifier) at \(dateComponents.hour!):\(dateComponents.minute!)")
-                scheduleAdditionalNotifications(date: selectedDate, interval: 20, count: 10)
-            }
-        }
-    }
+                if let appDelegate = sharedAppDelegate {
+                    appDelegate.scheduleAdditionalNotifications()
+                }
 
-    func scheduleAdditionalNotifications(date: Date, interval: TimeInterval, count: Int) {
-        for i in 1...count {
-            let triggerDate = Calendar.current.date(byAdding: .second, value: Int(interval) * i, to: date)!
-            let trigger = UNCalendarNotificationTrigger(dateMatching: Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: triggerDate), repeats: false)
-            let content = UNMutableNotificationContent()
-            content.title = "起きろ！"
-            content.body = "まだ起きていませんか？"
-            content.sound = UNNotificationSound.default
-
-            let request = UNNotificationRequest(identifier: "RetryNotification-\(i)", content: content, trigger: trigger)
-
-            UNUserNotificationCenter.current().add(request) { error in
-                if let error = error {
-                    print("Error adding retry notification \(i): \(error)")
-                } else {
-                    print("Retry notification \(i) scheduled at \(triggerDate)")
+                // ポップアップ表示
+                DispatchQueue.main.async {
+                    alertMessage = "アラームをセットしました。時間: \(dateComponents.hour!):\(String(format: "%02d", dateComponents.minute!))"
+                    showingAlert = true
                 }
             }
         }
@@ -118,7 +110,9 @@ struct ContentView: View {
                 print("Error adding immediate notification: \(error)")
             } else {
                 print("Immediate notification scheduled")
-                scheduleAdditionalNotifications(date: Date().addingTimeInterval(1), interval: 20, count: 10)
+                if let appDelegate = sharedAppDelegate {
+                    appDelegate.scheduleAdditionalNotifications()
+                }
             }
         }
     }

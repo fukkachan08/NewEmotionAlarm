@@ -16,13 +16,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="目覚ましを止めるには、ーーーーーー" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RoV-gi-Puw">
-                                <rect key="frame" x="61" y="281" width="271" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PQU-1Q-ke7">
                                 <rect key="frame" x="153" y="539" width="88" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -32,6 +25,17 @@
                                     <action selector="dismissHint:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="8Dl-cR-5nV"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="305" translatesAutoresizingMaskIntoConstraints="NO" id="RoV-gi-Puw">
+                                <rect key="frame" x="43" y="235" width="307" height="222"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <string key="text">この目覚ましは、音声による感情分析の元気度が100%を超えると止めることが出来ます。元気度はAIを用いたアルゴリズムに基づいて判定されます。
+
+
+Tips: 大きな声で、上り調子で「おはよう！」と言ってみよう</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>

@@ -197,15 +197,17 @@ class RecognitionViewModel: ObservableObject {
             let surpriseValue = Float(surpriseValueString) ?? -1
 
             if happyValue >= 0 && angryValue >= 0 && surpriseValue >= 0 {
-                self.apiResult = happyValue + 2 * angryValue + surpriseValue
+                self.apiResult = happyValue + 2 * angryValue + surpriseValue + 1
                 self.achievementPercentage = Int((self.apiResult! / 0.6) * 100)
                 print("API Result: \(self.apiResult ?? 0)")
 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                     if self.apiResult! >= 0.6 {
                         self.isAwake = true
+                        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
                     } else {
                         self.isAwake = false
+                        self.sendRetryNotification()
                     }
                 }
             } else {
@@ -248,9 +250,9 @@ class RecognitionViewModel: ObservableObject {
         countdown = 10
         statusMessage = "録音を開始してください"
         apiResult = nil
-        isAwake = false
         isWaitingForAPI = false
         achievementPercentage = nil
+        isAwake = false
     }
 }
 

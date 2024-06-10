@@ -27,8 +27,9 @@ struct SuccessView: View {
                 if let appDelegate = sharedAppDelegate {
                     appDelegate.showContentView()
                 }
+                cancelAllNotifications()
             }) {
-                Text("最初の画面に戻る")
+                Text("通知を解除し最初の画面に戻る")
                     .padding()
                     .background(Color.blue)
                     .foregroundColor(.white)
@@ -36,6 +37,9 @@ struct SuccessView: View {
             }
             .padding()
         }
+    }
+    private func cancelAllNotifications() {
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
     }
 }
 
