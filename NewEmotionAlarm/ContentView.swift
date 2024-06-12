@@ -6,41 +6,76 @@ struct ContentView: View {
     @State private var showingAlert = false
     @State private var alertMessage = ""
     @State private var isAlarmSet = false
+    @State private var alarmTime: String?
 
     var body: some View {
-        VStack {
-            DatePicker("Select Alarm Time", selection: $selectedDate, displayedComponents: .hourAndMinute)
-                .datePickerStyle(WheelDatePickerStyle())
-                .padding()
-            
-            HStack {
-                Button(action: {
-                    isTomorrow = false
-                }) {
-                    Text("今日")
+        if !isAlarmSet{
+            VStack {
+                DatePicker("Select Alarm Time", selection: $selectedDate, displayedComponents: .hourAndMinute)
+                    .datePickerStyle(WheelDatePickerStyle())
+                    .padding()
+                
+                HStack {
+                    Button(action: {
+                        isTomorrow = false
+                    }) {
+                        Text("今日")
+                            .padding()
+                            .background(isTomorrow ? Color.gray : Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(8)
+                    }
+                    .padding()
+                    
+                    Button(action: {
+                        isTomorrow = true
+                    }) {
+                        Text("明日")
+                            .padding()
+                            .background(isTomorrow ? Color.blue : Color.gray)
+                            .foregroundColor(.white)
+                            .cornerRadius(8)
+                    }
+                    .padding()
+                }
+                
+                Button(action: scheduleNotification) {
+                    Text("アラームをセット")
                         .padding()
-                        .background(isTomorrow ? Color.gray : Color.blue)
+                        .background(Color.orange)
                         .foregroundColor(.white)
                         .cornerRadius(8)
                 }
                 .padding()
-
-                Button(action: {
-                    isTomorrow = true
-                }) {
-                    Text("明日")
+                .alert(isPresented: $showingAlert) {
+                    Alert(title: Text("完了"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+                }
+                
+                Button(action: sendImmediateNotification) {
+                    Text("デモを開始")
                         .padding()
-                        .background(isTomorrow ? Color.blue : Color.gray)
+                        .background(Color.green)
                         .foregroundColor(.white)
                         .cornerRadius(8)
                 }
                 .padding()
             }
-
-            Button(action: scheduleNotification) {
-                Text("アラームをセット")
+            .padding()
+        }
+        else {
+            Text("目覚ましがセットされています")
+                .font(.title)
+                .padding()
+            if let alarmTime = alarmTime {
+                Text(alarmTime)
+                    .font(.title)
                     .padding()
-                    .background(isAlarmSet ?Color.gray : Color.orange)
+            }
+            
+            Button(action: cancelAllNotifications) {
+                Text("アラームをキャンセル")
+                    .padding()
+                    .background(Color.red)
                     .foregroundColor(.white)
                     .cornerRadius(8)
             }
@@ -48,29 +83,7 @@ struct ContentView: View {
             .alert(isPresented: $showingAlert) {
                 Alert(title: Text("完了"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
             }
-            
-            Button(action: cancelAllNotifications) {
-                Text("アラームをキャンセル")
-                    .padding()
-                    .background(isAlarmSet ?Color.red : Color.gray)
-                    .foregroundColor(.white)
-                    .cornerRadius(8)
-            }
-            .padding()
-            .alert(isPresented: $showingAlert) {
-                Alert(title: Text("アラームキャンセル"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
-            }
-
-            Button(action: sendImmediateNotification) {
-                Text("デモを開始")
-                    .padding()
-                    .background(Color.green)
-                    .foregroundColor(.white)
-                    .cornerRadius(8)
-            }
-            .padding()
         }
-        .padding()
     }
 
     func scheduleNotification() {
@@ -101,7 +114,12 @@ struct ContentView: View {
                 }
 
                 DispatchQueue.main.async {
-                    alertMessage = "\(dateComponents.hour!):\(String(format: "%02d", dateComponents.minute!)) にアラームをセットしました\nおやすみなさい！"
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "MM/dd HH:mm"
+                    if let alarmDate = Calendar.current.date(from: dateComponents) {
+                        alertMessage = "\(formatter.string(from: alarmDate))\nにアラームをセットしました\nおやすみなさい"
+                        alarmTime = formatter.string(from: alarmDate)
+                    }
                     showingAlert = true
                     isAlarmSet = true
                 }
@@ -137,6 +155,8 @@ struct ContentView: View {
             alertMessage = "目覚ましをキャンセルしました。"
             showingAlert = true
             isAlarmSet = false
+            alarmTime = nil
+            
         }
         print("CancelByButton")
     }
