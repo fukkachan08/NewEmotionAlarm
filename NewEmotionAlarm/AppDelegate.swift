@@ -16,7 +16,7 @@ struct VoiceEmotionAlarmApp: App {
 
 class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     var window: UIWindow?
-    var isSuccess: Bool = false
+    var isSuccess = false
 
     override init() {
         super.init()
@@ -36,10 +36,8 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     }
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        if response.notification.request.identifier == "AlarmNotification" || response.notification.request.identifier == "ImmediateNotification" {
-            if let appDelegate = sharedAppDelegate {
-                appDelegate.isSuccess = false // 初回アラームでSuccess状態をリセット
-            }
+        if response.notification.request.identifier.hasPrefix("AlarmNotification") || response.notification.request.identifier.hasPrefix("ImmediateNotification") || response.notification.request.identifier.hasPrefix("RetryNotification") {
+            isSuccess = false
             DispatchQueue.main.async {
                 self.cancelAllNotifications()
                 if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
@@ -84,26 +82,38 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     func cancelAllNotifications() {
         UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         UNUserNotificationCenter.current().removeAllDeliveredNotifications()
-        print("CancelAllNorifications")
+        print("CancelAllNotifications")
     }
-    func scheduleAdditionalNotifications() {
-            for i in 1...3 {
-                let content = UNMutableNotificationContent()
-                content.title = "起きろ！"
-                content.body = "まだ起きていませんか？"
-                content.sound = UNNotificationSound.default
 
-                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(30 * i), repeats: false)
-                let request = UNNotificationRequest(identifier: "RetryNotification_\(i)", content: content, trigger: trigger)
+    func scheduleAdditionalNotifications(alarmDateComponents: DateComponents) {
+        let calendar = Calendar.current
+        guard let alarmDate = calendar.date(from: alarmDateComponents) else {
+            print("Invalid alarm date components")
+            return
+        }
 
-                UNUserNotificationCenter.current().add(request) { error in
-                    if let error = error {
-                        print("Error scheduling additional notification: \(error)")
-                    } else {
-                        print("Additional notification \(i) scheduled.")
-                    }
+        for i in 1...10 {
+            let content = UNMutableNotificationContent()
+            content.title = "起きて！"
+            content.body = "まだ起きていませんか？"
+            content.sound = UNNotificationSound.default
+
+            let additionalDate = calendar.date(byAdding: .second, value: 20 * i, to: alarmDate)!
+            let trigger = UNCalendarNotificationTrigger(dateMatching: calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: additionalDate), repeats: false)
+            let request = UNNotificationRequest(identifier: "RetryNotification_\(i)", content: content, trigger: trigger)
+
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            let formattedDate = dateFormatter.string(from: additionalDate)
+
+            UNUserNotificationCenter.current().add(request) { error in
+                if let error = error {
+                    print("Error scheduling additional notification: \(error)")
+                } else {
+                    print("Additional notification \(i) scheduled at \(formattedDate).")
                 }
             }
         }
+    }
 }
 

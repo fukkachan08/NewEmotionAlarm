@@ -47,7 +47,6 @@ struct RecognitionView: View {
                 }
                 .padding()
 
-                // ヒントボタンを追加
                 Button(action: {
                     print("Hint button pressed")
                     if let appDelegate = sharedAppDelegate {

@@ -228,10 +228,10 @@ class RecognitionViewModel: ObservableObject {
     }
 
     func sendRetryNotification() {
-        if self.isAwake { return }  // SuccessViewに到達した場合は再通知を送らない
+        if self.isAwake { return }
         let content = UNMutableNotificationContent()
-        content.title = "再試行通知"
-        content.body = "音声録音が開始されませんでした。再度お試しください。"
+        content.title = "もう一度！"
+        content.body = "失敗しました。再度録音をしてください"
         content.sound = UNNotificationSound.default
 
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
