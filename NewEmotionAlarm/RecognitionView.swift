@@ -80,9 +80,6 @@ struct RecognitionView: View {
                 }
             }
         }
-        .onAppear {
-            //viewModel.startMonitoring()  // モニタリングを開始
-        }
     }
 
     private func resetView() {

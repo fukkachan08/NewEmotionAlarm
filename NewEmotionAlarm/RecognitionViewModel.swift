@@ -197,7 +197,7 @@ class RecognitionViewModel: ObservableObject {
             let surpriseValue = Float(surpriseValueString) ?? -1
 
             if happyValue >= 0 && angryValue >= 0 && surpriseValue >= 0 {
-                self.apiResult = happyValue + 2 * angryValue + surpriseValue + 1
+                self.apiResult = happyValue + 2 * angryValue + surpriseValue
                 self.achievementPercentage = Int((self.apiResult! / 0.6) * 100)
                 print("API Result: \(self.apiResult ?? 0)")
 
@@ -205,6 +205,9 @@ class RecognitionViewModel: ObservableObject {
                     if self.apiResult! >= 0.6 {
                         self.isAwake = true
                         UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+                        if let appDelegate = sharedAppDelegate {
+                            appDelegate.isSuccess = true
+                        }
                     } else {
                         self.isAwake = false
                         self.sendRetryNotification()
@@ -225,6 +228,7 @@ class RecognitionViewModel: ObservableObject {
     }
 
     func sendRetryNotification() {
+        if self.isAwake { return }  // SuccessViewに到達した場合は再通知を送らない
         let content = UNMutableNotificationContent()
         content.title = "再試行通知"
         content.body = "音声録音が開始されませんでした。再度お試しください。"
@@ -237,7 +241,10 @@ class RecognitionViewModel: ObservableObject {
     }
 
     func startMonitoring() {
-        Timer.scheduledTimer(withTimeInterval: 20.0, repeats: true) { timer in
+        Timer.scheduledTimer(withTimeInterval: 30.0, repeats: true) { timer in
+            if let appDelegate = sharedAppDelegate, appDelegate.isSuccess {
+                return // Success状態なら再試行通知を送信しない
+            }
             if !self.isListening && !self.isAwake {
                 self.sendRetryNotification()
             }

@@ -29,7 +29,7 @@ struct SuccessView: View {
                 }
                 cancelAllNotifications()
             }) {
-                Text("通知を解除し最初の画面に戻る")
+                Text("最初の画面に戻る")
                     .padding()
                     .background(Color.blue)
                     .foregroundColor(.white)

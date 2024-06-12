@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6978E6B22C180A7100616BF2 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 6978E6B12C180A7100616BF2 /* PrivacyInfo.xcprivacy */; };
 		69C09BFF2C145360004260BF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69C09BFE2C145360004260BF /* Main.storyboard */; };
 		69C09C012C145412004260BF /* HintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C09C002C145412004260BF /* HintViewController.swift */; };
 		69C0BA2A2C13661200BA0B35 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C0BA292C13661200BA0B35 /* ContentView.swift */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6978E6B12C180A7100616BF2 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		69C09BFD2C13F4E8004260BF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		69C09BFE2C145360004260BF /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		69C09C002C145412004260BF /* HintViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HintViewController.swift; sourceTree = "<group>"; };
@@ -77,6 +79,7 @@
 				69C0BA372C1366DB00BA0B35 /* SuccessView.swift */,
 				69C0BA392C1366FC00BA0B35 /* RecognitionViewModel.swift */,
 				69C0BA2B2C13661500BA0B35 /* Assets.xcassets */,
+				6978E6B12C180A7100616BF2 /* PrivacyInfo.xcprivacy */,
 				69C0BA2D2C13661500BA0B35 /* Preview Content */,
 			);
 			path = NewEmotionAlarm;
@@ -150,6 +153,7 @@
 			files = (
 				69C09BFF2C145360004260BF /* Main.storyboard in Resources */,
 				69C0BA2F2C13661500BA0B35 /* Preview Assets.xcassets in Resources */,
+				6978E6B22C180A7100616BF2 /* PrivacyInfo.xcprivacy in Resources */,
 				69C0BA2C2C13661500BA0B35 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -299,9 +303,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"NewEmotionAlarm/Preview Content\"";
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 2K446D59RQ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NewEmotionAlarm/Info.plist;
@@ -317,6 +324,8 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = app.Fukano.Fukka.NewEmotionAlarm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "L-16-MasatoFukano-NewEmotionAlarm";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -328,9 +337,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"NewEmotionAlarm/Preview Content\"";
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 2K446D59RQ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NewEmotionAlarm/Info.plist;
@@ -346,6 +358,8 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = app.Fukano.Fukka.NewEmotionAlarm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "L-16-MasatoFukano-NewEmotionAlarm";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

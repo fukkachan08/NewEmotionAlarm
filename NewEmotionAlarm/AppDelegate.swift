@@ -16,6 +16,7 @@ struct VoiceEmotionAlarmApp: App {
 
 class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     var window: UIWindow?
+    var isSuccess: Bool = false
 
     override init() {
         super.init()
@@ -36,7 +37,11 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         if response.notification.request.identifier == "AlarmNotification" || response.notification.request.identifier == "ImmediateNotification" {
+            if let appDelegate = sharedAppDelegate {
+                appDelegate.isSuccess = false // 初回アラームでSuccess状態をリセット
+            }
             DispatchQueue.main.async {
+                self.cancelAllNotifications()
                 if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
                     let window = UIWindow(windowScene: windowScene)
                     window.rootViewController = UIHostingController(rootView: RecognitionView(viewModel: RecognitionViewModel(selectedDate: Date(), isTomorrow: false, immediate: true)))
@@ -75,14 +80,20 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
             self.window = window
         }
     }
+    
+    func cancelAllNotifications() {
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+        print("CancelAllNorifications")
+    }
     func scheduleAdditionalNotifications() {
-            for i in 1...10 {
+            for i in 1...3 {
                 let content = UNMutableNotificationContent()
                 content.title = "起きろ！"
                 content.body = "まだ起きていませんか？"
                 content.sound = UNNotificationSound.default
 
-                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(20 * i), repeats: false)
+                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(30 * i), repeats: false)
                 let request = UNNotificationRequest(identifier: "RetryNotification_\(i)", content: content, trigger: trigger)
 
                 UNUserNotificationCenter.current().add(request) { error in
