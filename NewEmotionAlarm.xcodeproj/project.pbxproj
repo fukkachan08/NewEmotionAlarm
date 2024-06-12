@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		6978E6B22C180A7100616BF2 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 6978E6B12C180A7100616BF2 /* PrivacyInfo.xcprivacy */; };
+		69B5B43C2C1A1A2A003647EB /* coke20.caf in Resources */ = {isa = PBXBuildFile; fileRef = 69B5B43A2C1A1A29003647EB /* coke20.caf */; };
+		69B5B43F2C1A21EF003647EB /* coke10.caf in Resources */ = {isa = PBXBuildFile; fileRef = 69B5B43E2C1A2184003647EB /* coke10.caf */; };
 		69C09BFF2C145360004260BF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69C09BFE2C145360004260BF /* Main.storyboard */; };
 		69C09C012C145412004260BF /* HintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C09C002C145412004260BF /* HintViewController.swift */; };
 		69C0BA2A2C13661200BA0B35 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C0BA292C13661200BA0B35 /* ContentView.swift */; };
@@ -23,6 +25,8 @@
 
 /* Begin PBXFileReference section */
 		6978E6B12C180A7100616BF2 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		69B5B43A2C1A1A29003647EB /* coke20.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = coke20.caf; sourceTree = "<group>"; };
+		69B5B43E2C1A2184003647EB /* coke10.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = coke10.caf; path = ../coke10.caf; sourceTree = "<group>"; };
 		69C09BFD2C13F4E8004260BF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		69C09BFE2C145360004260BF /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		69C09C002C145412004260BF /* HintViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HintViewController.swift; sourceTree = "<group>"; };
@@ -52,6 +56,8 @@
 		69C0BA1B2C13661200BA0B35 = {
 			isa = PBXGroup;
 			children = (
+				69B5B43A2C1A1A29003647EB /* coke20.caf */,
+				69B5B43E2C1A2184003647EB /* coke10.caf */,
 				69C0BA262C13661200BA0B35 /* NewEmotionAlarm */,
 				69C0BA252C13661200BA0B35 /* Products */,
 			);
@@ -151,6 +157,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69B5B43F2C1A21EF003647EB /* coke10.caf in Resources */,
+				69B5B43C2C1A1A2A003647EB /* coke20.caf in Resources */,
 				69C09BFF2C145360004260BF /* Main.storyboard in Resources */,
 				69C0BA2F2C13661500BA0B35 /* Preview Assets.xcassets in Resources */,
 				6978E6B22C180A7100616BF2 /* PrivacyInfo.xcprivacy in Resources */,
@@ -312,7 +320,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NewEmotionAlarm/Info.plist;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "音声認識のためにマイクを使用します。";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "音声認識のためにマイクを使用します。";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -346,7 +355,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NewEmotionAlarm/Info.plist;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "音声認識のためにマイクを使用します。";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "音声認識のためにマイクを使用します。";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";

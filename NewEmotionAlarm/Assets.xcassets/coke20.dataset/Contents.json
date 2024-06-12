@@ -1,8 +1,11 @@
 {
   "data" : [
     {
-      "filename" : "coke20.mp3",
+      "filename" : "coke20.caf",
       "idiom" : "universal"
+    },
+    {
+      "idiom" : "iphone"
     }
   ],
   "info" : {

@@ -91,7 +91,7 @@ struct ContentView: View {
         let content = UNMutableNotificationContent()
         content.title = "アラーム"
         content.body = "⚠️起きる時間です！⚠️"
-        content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "coke20.mp3"))
+        content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "coke20.caf"))
 
         var dateComponents = Calendar.current.dateComponents([.hour, .minute], from: selectedDate)
         if isTomorrow {
@@ -132,7 +132,7 @@ struct ContentView: View {
         let content = UNMutableNotificationContent()
         content.title = "デモ通知"
         content.body = "おはようございます"
-        content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "coke20.mp3"))
+        content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "coke20.caf"))
 
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
         let request = UNNotificationRequest(identifier: "ImmediateNotification", content: content, trigger: trigger)

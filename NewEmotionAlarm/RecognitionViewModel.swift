@@ -84,7 +84,6 @@ class RecognitionViewModel: ObservableObject {
                 self.isListening = true
                 self.statusMessage = "音声録音中"
                 self.startCountdown()
-                self.checkRecordingStartTimeout()
             }
         } catch {
             return
@@ -219,20 +218,20 @@ class RecognitionViewModel: ObservableObject {
         }
     }
 
-    func checkRecordingStartTimeout() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 30) {
-            if !self.isListening {
-                self.sendRetryNotification()
-            }
-        }
-    }
-
     func sendRetryNotification() {
-        if self.isAwake { return }
+        print("SendRetryNotification")
+        if self.isAwake || self.isListening {
+            print("Deter by isAwake, isListning")
+            return
+        }
+        if let appDelegate = sharedAppDelegate, appDelegate.isSuccess {
+            print("Deter by Success")
+            return
+        }
         let content = UNMutableNotificationContent()
         content.title = "もう一度！"
         content.body = "失敗しました。再度録音をしてください"
-        content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "coke10.mp3"))
+        content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "coke10.caf"))
 
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
         let request = UNNotificationRequest(identifier: "RetryNotification-\(UUID().uuidString)", content: content, trigger: trigger)
@@ -241,7 +240,7 @@ class RecognitionViewModel: ObservableObject {
     }
 
     func startMonitoring() {
-        Timer.scheduledTimer(withTimeInterval: 30.0, repeats: true) { timer in
+        Timer.scheduledTimer(withTimeInterval: 40.0, repeats: true) { timer in
             if let appDelegate = sharedAppDelegate, appDelegate.isSuccess {
                 return // Success状態なら再試行通知を送信しない
             }
