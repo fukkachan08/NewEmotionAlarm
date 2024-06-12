@@ -62,10 +62,11 @@ struct ContentView: View {
             }
             .padding()
         }
-        else {
+        else if isAlarmSet  {
             Text("目覚ましがセットされています")
-                .font(.title)
+                .font(.title2)
                 .padding()
+                .multilineTextAlignment(.center)
             if let alarmTime = alarmTime {
                 Text(alarmTime)
                     .font(.title)
@@ -90,7 +91,7 @@ struct ContentView: View {
         let content = UNMutableNotificationContent()
         content.title = "アラーム"
         content.body = "⚠️起きる時間です！⚠️"
-        content.sound = UNNotificationSound.default
+        content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "coke20.mp3"))
 
         var dateComponents = Calendar.current.dateComponents([.hour, .minute], from: selectedDate)
         if isTomorrow {
@@ -131,7 +132,7 @@ struct ContentView: View {
         let content = UNMutableNotificationContent()
         content.title = "デモ通知"
         content.body = "おはようございます"
-        content.sound = UNNotificationSound.default
+        content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "coke20.mp3"))
 
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
         let request = UNNotificationRequest(identifier: "ImmediateNotification", content: content, trigger: trigger)

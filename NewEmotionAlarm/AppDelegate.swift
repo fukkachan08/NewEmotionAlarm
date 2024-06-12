@@ -96,7 +96,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
             let content = UNMutableNotificationContent()
             content.title = "起きて！"
             content.body = "まだ起きていませんか？"
-            content.sound = UNNotificationSound.default
+            content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "coke10.mp3"))
 
             let additionalDate = calendar.date(byAdding: .second, value: 20 * i, to: alarmDate)!
             let trigger = UNCalendarNotificationTrigger(dateMatching: calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: additionalDate), repeats: false)

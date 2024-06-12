@@ -220,7 +220,7 @@ class RecognitionViewModel: ObservableObject {
     }
 
     func checkRecordingStartTimeout() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 20) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 30) {
             if !self.isListening {
                 self.sendRetryNotification()
             }
@@ -232,7 +232,7 @@ class RecognitionViewModel: ObservableObject {
         let content = UNMutableNotificationContent()
         content.title = "もう一度！"
         content.body = "失敗しました。再度録音をしてください"
-        content.sound = UNNotificationSound.default
+        content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "coke10.mp3"))
 
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
         let request = UNNotificationRequest(identifier: "RetryNotification-\(UUID().uuidString)", content: content, trigger: trigger)
